@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: digiseller-payment-callback
+  config:
+    import: optional:file:.env[.properties]
+
+server:
+  port:
+    8090
+
+digiseller:
+  token-path:
+    /apilogin
+  message-path:
+    /debates/v2/
+  base-url:
+    https://api.digiseller.com/api
