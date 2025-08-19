@@ -22,7 +22,6 @@ public class DigisellerPaymentService {
 
     private long SELLER_ID = Long.parseLong(System.getenv("SELLER_ID"));
     private String API_KEY = System.getenv("API_KEY");
-    private final String MESSAGE = System.getenv("MESSAGE");
     private final AtomicReference<String> currentToken = new AtomicReference<>();
 
     public void sendMessage(String message, long orderId) {
@@ -50,7 +49,6 @@ public class DigisellerPaymentService {
         TokenResponseDto tokenResponseDto = digisellerClient.getToken(tokenRequestDto);
         this.currentToken.set(tokenResponseDto.token());
         log.info("Токен успешно обновлен: {} ", currentToken);
-        log.info("MESSAGE: {}", MESSAGE);
     }
 
     private String generateSign() {
