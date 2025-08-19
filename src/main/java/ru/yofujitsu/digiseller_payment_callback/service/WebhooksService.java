@@ -10,12 +10,10 @@ import org.springframework.stereotype.Service;
 public class WebhooksService {
 
     private final DigisellerPaymentService digisellerPaymentService;
-    private static final String MESSAGE = "\uD83D\uDD25Благодарю за покупку\uD83D\uDD25\n" +
-            "Оставьте, пожалуйста, положительный отзыв - это очень поможет развитию моего магазина\n" +
-            "\uD83C\uDF81В качестве подарка за отзыв предлагаю ключ от случайной игры в Steam \uD83C\uDF81";
+    private final String MESSAGE = System.getenv("MESSAGE");
 
-    public void handlePayment(long orderId) {
-        log.info("Произошла покупка товара {}.", orderId);
+    public void handlePayment(long orderId, String email, long amount, String curr) {
+        log.info("Произошла покупка товара c ID {}, от пользователя с email: {}, на сумму: {} {}", orderId, email, amount, curr);
         digisellerPaymentService.sendMessage(MESSAGE, orderId);
         log.info("Отправил ответное сообщение покупателю.");
     }

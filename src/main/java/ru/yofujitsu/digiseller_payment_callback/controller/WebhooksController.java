@@ -16,8 +16,9 @@ public class WebhooksController {
 
     @PostMapping("/webhook/sale")
     public ResponseEntity<Void> handlePaymentPost(@RequestBody WebhookResponseDto webhookResponseDto) {
-        log.info("Received POST webhook response: {}", webhookResponseDto);
-        webhooksService.handlePayment(Long.parseLong(webhookResponseDto.orderId()));
+        log.info("Получен POST респонс вебхука: {}", webhookResponseDto);
+        webhooksService.handlePayment(Long.parseLong(webhookResponseDto.orderId()),
+                webhookResponseDto.email(), Long.parseLong(webhookResponseDto.amount()), webhookResponseDto.currency());
         return ResponseEntity.ok().build();
     }
     @GetMapping("/webhook/sale")
@@ -33,9 +34,9 @@ public class WebhooksController {
                                                  @RequestParam String agent,
                                                  @RequestParam String cart_uid,
                                                  @RequestParam String isMyProduct) {
-        log.info("Received GET webhook response: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}", id_i, id_d, amount,
-                curr, date, email, sha256, ip, agent, cart_uid, isMyProduct);
-        webhooksService.handlePayment(Long.parseLong(id_i));
+        log.info("Получен GET респонс вебхука: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}", id_i, id_d, amount,
+                curr, date, email, sha256, through, ip, agent, cart_uid, isMyProduct);
+        webhooksService.handlePayment(Long.parseLong(id_i), email, Long.parseLong(amount), curr);
         return ResponseEntity.ok().build();
     }
 }
