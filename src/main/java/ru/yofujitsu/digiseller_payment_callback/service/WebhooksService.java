@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class WebhooksService {
 
     private final DigisellerPaymentService digisellerPaymentService;
-    private final String MESSAGE = System.getenv("MESSAGE");
+    private String MESSAGE = System.getenv("MESSAGE");
 
     public void handlePayment(long orderId, String email, String amount, String curr) {
         log.info("MESSAGE: {}", MESSAGE);
